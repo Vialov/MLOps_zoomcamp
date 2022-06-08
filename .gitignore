@@ -1,6 +1,7 @@
 .ipynb_checkpoints/
 
-*data/*
+data/
+homework3/data/
 mlruns/
 output/
 
