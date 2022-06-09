@@ -6,7 +6,8 @@ from sklearn.metrics import mean_squared_error
 
 from prefect import flow, task, get_run_logger
 from prefect.task_runners import SequentialTaskRunner
-import prefect
+
+from datetime import datetime, timedelta
 
 @task
 def read_data(path):
@@ -59,9 +60,31 @@ def run_model(df, categorical, dv, lr):
     logger.info(f"The MSE of validation is: {mse}")
     return
 
+def get_path(date: datetime):
+    return date.strftime("./data/fhv_tripdata_%Y-%m.parquet")
+
+def month_before(date: datetime):
+    if date.month == 1:
+        return date.replace(year=date.year - 1, month=12)
+    return date.replace(month=date.month - 1)
+
+@task
+def get_paths(date):
+    if date is None:
+        date = datetime.now
+    else:
+        date = datetime.strptime(date, '%Y-%m-%d')
+    date = month_before(date)
+    val_path = get_path(date)
+    date = month_before(date)
+    train_path = get_path(date)
+    return train_path, val_path
+        
+
 @flow(task_runner=SequentialTaskRunner())
-def main(train_path: str = './data/fhv_tripdata_2021-01.parquet', 
-           val_path: str = './data/fhv_tripdata_2021-02.parquet'):
+def main(date="2021-08-15"):
+
+    train_path, val_path = get_paths(date).result()
 
     categorical = ['PUlocationID', 'DOlocationID']
 
