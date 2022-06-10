@@ -9,3 +9,7 @@ train_model
 # Q3. Saving the model and artifacts
 
 13,000 bytes
+
+# Q4. Creating a deployment with a CronSchedule
+
+9 15 * * *
