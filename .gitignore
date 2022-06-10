@@ -1,6 +1,7 @@
 .ipynb_checkpoints/
 
 data/
+models/
 homework3/data/
 mlruns/
 output/
