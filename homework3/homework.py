@@ -107,4 +107,5 @@ def main(date="2021-08-15"):
     with open(f'./models/dv-{date}.b', 'wb') as f:
         pickle.dump(dv, f)
 
-main()
+if __name__==  '__main__':
+    main()

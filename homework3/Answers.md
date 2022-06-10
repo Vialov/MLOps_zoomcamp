@@ -12,7 +12,7 @@ train_model
 
 # Q4. Creating a deployment with a CronSchedule
 
-9 15 * * *
+0 9 15 * *
 
 # Q6. Creating a work-queue
 
