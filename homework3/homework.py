@@ -1,5 +1,7 @@
 import pandas as pd
 
+import pickle
+
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
@@ -97,5 +99,12 @@ def main(date="2021-08-15"):
     # train the model
     lr, dv = train_model(df_train_processed, categorical).result()
     run_model(df_val_processed, categorical, dv, lr)
+
+    # save model and vectorizer
+    with open(f'./models/model-{date}.bin', 'wb') as f:
+        pickle.dump(lr, f)
+
+    with open(f'./models/dv-{date}.b', 'wb') as f:
+        pickle.dump(dv, f)
 
 main()
