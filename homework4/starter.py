@@ -3,6 +3,7 @@
 
 import pickle
 import pandas as pd
+import sys
 
 
 categorical = ['PUlocationID', 'DOlocationID']
@@ -57,6 +58,6 @@ def run(year, month):
     )
 
 if __name__=='__main__':
-    year = 2021
-    month = 2
+    year = int(sys.argv[1]) #2021
+    month = int(sys.argv[2]) #2
     run(year, month)
